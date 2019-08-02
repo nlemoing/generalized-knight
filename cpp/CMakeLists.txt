@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+set ( CMAKE_CXX_STANDARD 11 )
+project( Knight )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( knight main.cc rw.cc bfs.cc next.cc board.cc )
+target_link_libraries( knight ${OpenCV_LIBS} )
