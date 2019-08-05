@@ -153,20 +153,31 @@ function possibleMoves() {
 }
 
 function updateNextMoves() {
+
+	function contains(A, r, c) {
+		for (var i = 0; i < A.length; i++) {
+			if (A[i][0] == r && A[i][1] == c) return true;
+		}
+		return false;
+	}
 	let r, c;
-	for (let i = 0; i < this.nextMoves.length; i++) {
-		r = this.nextMoves[i][0];
-		c = this.nextMoves[i][1];
+	let prev = this.nextMoves;
+	let next = this.possibleMoves();
+	for (let i = 0; i < prev.length; i++) {
+		r = prev[i][0];
+		c = prev[i][1];
+		if (contains(next, r, c)) continue;
 		if ((r + c) % 2) fadeColor(this.id + "tile" + r + c, DG_COLOR, BT_COLOR);
 		else 	         fadeColor(this.id + "tile" + r + c, LG_COLOR, WT_COLOR);
 	}
-	this.nextMoves = this.possibleMoves();
-	for (let i = 0; i < this.nextMoves.length; i++) {
-		r = this.nextMoves[i][0];
-		c = this.nextMoves[i][1];
+	for (let i = 0; i < next.length; i++) {
+		r = next[i][0];
+		c = next[i][1];
+		if (contains(prev, r, c)) continue;
 		if ((r + c) % 2) fadeColor(this.id + "tile" + r + c, BT_COLOR, DG_COLOR);
 		else 		 fadeColor(this.id + "tile" + r + c, WT_COLOR, LG_COLOR);
 	}
+	this.nextMoves = next;
 }
 
 // Main
