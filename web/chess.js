@@ -114,7 +114,7 @@ function moveTo(r, c, capture) {
 	this.posR = r;
 	this.posC = c;
 	if (capture) this.captured = true;
-	this.updateAvailable();
+	this.updateNextMoves();
 
 	return true;
 }
@@ -127,15 +127,15 @@ function capture() {
 }
 
 function newGame() {
+	if (this.captured) {
+		fadeIn(this.id + "bknight");
+		this.captured = false;
+	}
 	if (this.posR !== this.startR || this.posC !== this.startC) {
 		movePiece(this.id + "wknight", this.posR, this.posC, this.startR, this.startC);
 		this.posR = this.startR;
 		this.posC = this.startC;
-		this.updateAvailable();
-	}
-	if (this.captured) {
-		fadeIn(this.id + "bknight");
-		this.captured = false;
+		this.updateNextMoves();
 	}
 }
 
@@ -152,7 +152,7 @@ function possibleMoves() {
 	});	     
 }
 
-function updateAvailable() {
+function updateNextMoves() {
 	let r, c;
 	for (let i = 0; i < this.nextMoves.length; i++) {
 		r = this.nextMoves[i][0];
@@ -185,7 +185,7 @@ function createGame(divId, options) {
 	game.capture = capture;
 	game.newGame = newGame;
 	game.possibleMoves = possibleMoves;
-	game.updateAvailable = updateAvailable;
+	game.updateNextMoves = updateNextMoves;
 	
 	var tile;
 	for (var r = 0; r < NUM_TILES; r++) {
