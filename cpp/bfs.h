@@ -3,6 +3,6 @@
 
 #include "board.h"
 
-Board &bfs(Board &, unsigned int startRow, unsigned int startCol, unsigned int knightA, unsigned int knightB);
+void bfs(Board &, unsigned int startRow, unsigned int startCol, unsigned int knightA, unsigned int knightB, bool save_steps = false);
 
 #endif

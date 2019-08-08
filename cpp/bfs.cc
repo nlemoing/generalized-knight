@@ -5,11 +5,13 @@
 
 using namespace std;
 
-Board &bfs(Board &board, unsigned int startRow, unsigned int startCol, unsigned int a, unsigned int b) {
-	if (board.set(startRow, startCol, 1)) return board;
+void bfs(Board &board, unsigned int startRow, unsigned int startCol, unsigned int a, unsigned int b, bool save_steps) {
+	if (board.set(startRow, startCol, 1)) return;
 	deque<pair<unsigned int, unsigned int>> q(1, make_pair(startRow, startCol));
 	pair<unsigned int, unsigned int> p;
 	int r, c, i;
+	int iterations = 0;
+	char fname[16];
 	while (q.size()) {
 		p = q.front();
 		q.pop_front();
@@ -17,6 +19,11 @@ Board &bfs(Board &board, unsigned int startRow, unsigned int startCol, unsigned 
 		c = p.second;
 		i = board.get(r, c);
 		if (i == -1) continue;
+		if (save_steps && i > iterations) {
+			iterations += 1;
+			sprintf(fname, "%04d.png", iterations);
+			board.toPNG(fname);
+		}
 		for (auto next : nextMoves(r, c, a, b)) {
 			// if it has already been visited or it is invalid, skip
 			if (board.get(next.first, next.second)) continue;
@@ -24,5 +31,4 @@ Board &bfs(Board &board, unsigned int startRow, unsigned int startCol, unsigned 
 			q.push_back(next);
 		}
 	}
-	return board;
 }

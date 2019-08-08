@@ -1,5 +1,8 @@
 *.o
-knight
+*.a
+bfs
+rw
+out
 CMakeCache.txt
 CMakeFiles
 cmake_install.cmake

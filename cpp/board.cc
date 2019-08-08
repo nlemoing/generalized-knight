@@ -24,7 +24,12 @@ Vec3b interpolate(Vec3b lo, Vec3b hi, float f) {
 	return result;	
 }
 
-Mat Board::convert(Vec3b lo, Vec3b hi) {
+void Board::setColors(Vec3b l, Vec3b h) {
+	lo = l;
+	hi = h;
+}
+
+void Board::toPNG(string fname) {
 	Mat img = Mat::zeros(height, width, CV_8UC3);
 	int max = 0, min = INT_MAX, val;
 	Vec3b intensity;
@@ -46,8 +51,9 @@ Mat Board::convert(Vec3b lo, Vec3b hi) {
 			img.at<Vec3b>(r, c) = interpolate(lo, hi, f);
 		}
 	}
-	
-	return img;
+
+	cvtColor(img, img, COLOR_HSV2BGR);
+	imwrite(fname, img);
 }
 
 int Board::get(unsigned int r, unsigned int c) {
