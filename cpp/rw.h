@@ -3,7 +3,7 @@
 
 #include "board.h"
 
-Board &rw(Board &board, unsigned int startRow, unsigned int startCol, unsigned int a, unsigned int b, int steps = 100, int iterations = 1);
+void rw(Board &board, int sbTop, int sbLeft, int sbWidth, int sbHeight, unsigned int a, unsigned int b, int iterations = 1, int steps = 50, bool save_steps = false);
 
 
 #endif

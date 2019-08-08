@@ -2,7 +2,7 @@
 *.a
 bfs
 rw
-out
+out*
 CMakeCache.txt
 CMakeFiles
 cmake_install.cmake

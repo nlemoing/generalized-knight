@@ -1,12 +1,32 @@
 #include "board.h"
 #include "bfs.h"
+#include "params.h"
 
+using namespace std;
 using namespace cv;
+
+void bfsParams(int &startR, int &startC) {
+	cout << "Start row, start column" << endl;
+	cin >> startR >> startC;
+}
+
 int main() {
-	Vec3b lo(120, 170, 170); // blue
-	Vec3b hi(30, 170, 170); // yellow
-	Board b = Board(640, 480);
+	int hueLo, hueHi, sat, bright;
+	bool save;
+	imageParams(hueLo, hueHi, sat, bright, save);
+	
+	int width, height, knightA, knightB;
+	boardParams(width, height, knightA, knightB);
+	
+	int startR, startC;
+	bfsParams(startR, startC);
+
+	Vec3b lo(hueLo, sat, bright);
+	Vec3b hi(hueHi, sat, bright);
+
+	Board b = Board(width, height);
 	b.setColors(lo, hi);
-	bfs(b, 100, 100, 14, 27, true);
-	b.toPNG("final.png");
+
+	bfs(b, startR, startC, knightA, knightB, save);
+	if (!save) b.toPNG("final.png");
 }

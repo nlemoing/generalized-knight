@@ -6,10 +6,10 @@
 #include <opencv2/opencv.hpp>
 
 class Board {
-	const unsigned int width, height;
 	std::vector<int> data;
 	cv::Vec3b lo, hi;
 	public:
+	const unsigned int width, height;
 	Board(unsigned int w, unsigned int h);
 	void print();
 	void setColors(cv::Vec3b, cv::Vec3b);
