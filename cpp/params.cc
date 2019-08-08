@@ -12,9 +12,9 @@ void imageParams(int &lo, int &hi, int &sat, int &val, bool &saveIntermediate) {
 	saveIntermediate = (c == 'y' || c == 'Y');
 }
 
-void boardParams(int &width, int &height, int &knightA, int &knightB) {
-	cout << "Board params: width, height" << endl;
-	cin >> width >> height;
+void boardParams(int &width, int &height, int &scale, int &knightA, int &knightB) {
+	cout << "Board params: width, height, scale factor" << endl;
+	cin >> width >> height >> scale;
 	cout << "Knight params: a, b" << endl;
 	cin >> knightA >> knightB;
 }

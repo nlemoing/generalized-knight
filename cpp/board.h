@@ -8,10 +8,11 @@
 class Board {
 	std::vector<int> data;
 	cv::Vec3b lo, hi;
+	int scale;
 	public:
 	const unsigned int width, height;
 	cv::Mat img;
-	Board(unsigned int w, unsigned int h);
+	Board(unsigned int w, unsigned int h, int s);
 	void print();
 	void setColors(cv::Vec3b, cv::Vec3b);
 	void refreshImg();

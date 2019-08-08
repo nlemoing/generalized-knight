@@ -15,8 +15,8 @@ int main() {
 	bool save;
 	imageParams(hueLo, hueHi, sat, bright, save);
 	
-	int width, height, knightA, knightB;
-	boardParams(width, height, knightA, knightB);
+	int width, height, scale, knightA, knightB;
+	boardParams(width, height, scale, knightA, knightB);
 	
 	int startR, startC;
 	bfsParams(startR, startC);
@@ -24,7 +24,7 @@ int main() {
 	Vec3b lo(hueLo, sat, bright);
 	Vec3b hi(hueHi, sat, bright);
 
-	Board b = Board(width, height);
+	Board b = Board(width, height, scale);
 	b.setColors(lo, hi);
 
 	bfs(b, startR, startC, knightA, knightB, save);

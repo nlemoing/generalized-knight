@@ -23,8 +23,8 @@ int main() {
 	bool save;
 	imageParams(hueLo, hueHi, sat, bright, save);
 	
-	int width, height, knightA, knightB;
-	boardParams(width, height, knightA, knightB);
+	int width, height, scale, knightA, knightB;
+	boardParams(width, height, scale, knightA, knightB);
 	
 	int sbTop, sbLeft, sbWidth, sbHeight, iterations, steps;
 	bool tracePaths;
@@ -33,7 +33,7 @@ int main() {
 	Vec3b lo(hueLo, sat, bright);
 	Vec3b hi(hueHi, sat, bright);
 	
-	Board b = Board(width, height);
+	Board b = Board(width, height, scale);
 	b.setColors(lo, hi);
 	
 	if (tracePaths) rwPath(b, sbTop, sbLeft, sbWidth, sbHeight, knightA, knightB, iterations, steps, save);

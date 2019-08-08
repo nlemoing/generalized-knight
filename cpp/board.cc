@@ -5,7 +5,7 @@
 using namespace std;
 using namespace cv;
 
-Board::Board(unsigned int w, unsigned int h): width{w}, height{h}, data(w * h, 0), img(h, w, CV_8UC3, Scalar(0, 0, 0)) {}
+Board::Board(unsigned int w, unsigned int h, int s): width{w}, height{h}, scale{s}, data(w * h, 0), img(h * s, w * s, CV_8UC3, Scalar(0, 0, 0)) {}
 
 void Board::print() {
 	for (int r = 0; r < height; r++) {
@@ -38,17 +38,17 @@ void Board::refreshImg() {
 		for (unsigned int c = 0; c < width; c++) {
 			val = get(r, c);
 			if (!val) {
-				drawPoint(img, r, c, Vec3b(0, 0, 0));
+				drawPoint(img, r, c, Vec3b(0, 0, 0), scale);
 			} else {	
 				f = (float)(val - min) / (max - min);
-				drawPoint(img, r, c, interpolate(lo, hi, f));
+				drawPoint(img, r, c, interpolate(lo, hi, f), scale);
 			}
 		}
 	}
 }
 
 void Board::line(int r1, int c1, int r2, int c2, float f) {
-	drawLine(img, r1, c1, r2, c2, interpolate(lo, hi, f));
+	drawLine(img, r1, c1, r2, c2, interpolate(lo, hi, f), scale);
 }
 
 void Board::toPNG(string fname) {
