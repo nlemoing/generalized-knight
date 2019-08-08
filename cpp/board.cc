@@ -1,4 +1,5 @@
 #include "board.h"
+#include "image.h"
 #include <iostream> 
 
 using namespace std;
@@ -16,14 +17,6 @@ void Board::print() {
 	}
 }
 
-Vec3b interpolate(Vec3b lo, Vec3b hi, float f) {
-	Vec3b result;
-	result[0] = ((1-f) * lo[0]) + (f * hi[0]);
-	result[1] = ((1-f) * lo[1]) + (f * hi[1]);
-	result[2] = ((1-f) * lo[2]) + (f * hi[2]);
-	return result;	
-}
-
 void Board::setColors(Vec3b l, Vec3b h) {
 	lo = l;
 	hi = h;
@@ -32,7 +25,6 @@ void Board::setColors(Vec3b l, Vec3b h) {
 void Board::toPNG(string fname) {
 	Mat img = Mat::zeros(height, width, CV_8UC3);
 	int max = 0, min = INT_MAX, val;
-	Vec3b intensity;
 	float f;
 	
 	for (unsigned int r = 0; r < height; r++) {
@@ -46,14 +38,16 @@ void Board::toPNG(string fname) {
 	for (unsigned int r = 0; r < height; r++) {
 		for (unsigned int c = 0; c < width; c++) {
 			val = get(r, c);
-			if (!val) continue;
-			f = (float)(val - min) / (max - min);
-			img.at<Vec3b>(r, c) = interpolate(lo, hi, f);
+			if (!val) {
+				drawPoint(img, r, c, Vec3b(0, 0, 0));
+			} else {	
+				f = (float)(val - min) / (max - min);
+				drawPoint(img, r, c, interpolate(lo, hi, f));
+			}
 		}
 	}
 
-	cvtColor(img, img, COLOR_HSV2BGR);
-	imwrite(fname, img);
+	write(img, fname);
 }
 
 int Board::get(unsigned int r, unsigned int c) {
