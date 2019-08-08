@@ -48,6 +48,7 @@ void rw(Board &board, int sbTop, int sbLeft, int sbWidth, int sbHeight, unsigned
 		}
 		if (save_steps) {
 			sprintf(fname, "%04d.png", step);
+			board.refreshImg();
 			board.toPNG(fname);
 		}
 	}

@@ -22,6 +22,7 @@ void bfs(Board &board, unsigned int startRow, unsigned int startCol, unsigned in
 		if (save_steps && i > iterations) {
 			iterations += 1;
 			sprintf(fname, "%04d.png", iterations);
+			board.refreshImg();
 			board.toPNG(fname);
 		}
 		for (auto next : nextMoves(r, c, a, b)) {
@@ -34,7 +35,7 @@ void bfs(Board &board, unsigned int startRow, unsigned int startCol, unsigned in
 	if (save_steps) {
 		iterations += 1;
 		sprintf(fname, "%04d.png", iterations);
+		board.refreshImg();
 		board.toPNG(fname);
 	}
-	
 }

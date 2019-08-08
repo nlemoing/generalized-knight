@@ -10,9 +10,11 @@ class Board {
 	cv::Vec3b lo, hi;
 	public:
 	const unsigned int width, height;
+	cv::Mat img;
 	Board(unsigned int w, unsigned int h);
 	void print();
 	void setColors(cv::Vec3b, cv::Vec3b);
+	void refreshImg();
 	void toPNG(std::string fname);
 	int get(unsigned int r, unsigned int c);
 	bool set(unsigned int r, unsigned int c, int i);

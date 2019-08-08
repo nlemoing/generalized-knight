@@ -5,7 +5,7 @@
 using namespace std;
 using namespace cv;
 
-Board::Board(unsigned int w, unsigned int h): width{w}, height{h}, data(w * h, 0) {}
+Board::Board(unsigned int w, unsigned int h): width{w}, height{h}, data(w * h, 0), img(h, w, CV_8UC3, Scalar(0, 0, 0)) {}
 
 void Board::print() {
 	for (int r = 0; r < height; r++) {
@@ -22,8 +22,7 @@ void Board::setColors(Vec3b l, Vec3b h) {
 	hi = h;
 }
 
-void Board::toPNG(string fname) {
-	Mat img = Mat::zeros(height, width, CV_8UC3);
+void Board::refreshImg() {
 	int max = 0, min = INT_MAX, val;
 	float f;
 	
@@ -46,7 +45,9 @@ void Board::toPNG(string fname) {
 			}
 		}
 	}
+}
 
+void Board::toPNG(string fname) {
 	write(img, fname);
 }
 
