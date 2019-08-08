@@ -56,7 +56,6 @@ void rw(Board &board, int sbTop, int sbLeft, int sbWidth, int sbHeight, unsigned
 	delete[] walkers;
 }
 
-/*
 void rwPath(Board &board, int sbTop, int sbLeft, int sbHeight, int sbWidth, unsigned int a, unsigned int b, int iterations, int steps, bool save_steps) {
 	
 	srand(time(NULL));
@@ -86,14 +85,13 @@ void rwPath(Board &board, int sbTop, int sbLeft, int sbHeight, int sbWidth, unsi
 			walkers[it] = v[next].first;
 			walkers[it+1] = v[next].second;
 
-			drawLine(img, r, c, walkers[it], walkers[it+1], interpolate(lo, hi, (float)it / (2 * iterations)));
+			board.line(r, c, walkers[it], walkers[it+1], (float)it / (2 * iterations));
 		}
 		if (save_steps) {
 			sprintf(fname, "%04d.png", step);
-			write(img, fname)
+			board.toPNG(fname);
 		}
 	}
 
 	delete[] walkers;
 }
-*/

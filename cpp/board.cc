@@ -47,6 +47,10 @@ void Board::refreshImg() {
 	}
 }
 
+void Board::line(int r1, int c1, int r2, int c2, float f) {
+	drawLine(img, r1, c1, r2, c2, interpolate(lo, hi, f));
+}
+
 void Board::toPNG(string fname) {
 	write(img, fname);
 }

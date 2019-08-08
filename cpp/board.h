@@ -15,6 +15,7 @@ class Board {
 	void print();
 	void setColors(cv::Vec3b, cv::Vec3b);
 	void refreshImg();
+	void line(int r1, int c1, int r2, int c2, float f);
 	void toPNG(std::string fname);
 	int get(unsigned int r, unsigned int c);
 	bool set(unsigned int r, unsigned int c, int i);
