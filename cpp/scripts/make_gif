@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ffmpeg -framerate 60 -pattern_type glob -i '*.png' $1
+rm *.png
