@@ -1,11 +1,12 @@
-#include "board.h"
+#include "rwRunner.h"
 #include "rw.h"
-#include "params.h"
 
 using namespace std;
-using namespace cv;
 
-void rwParams(int &sbTop, int &sbLeft, int &sbWidth, int &sbHeight, int &iterations, int &steps, bool &tracePaths) {
+void runRw(Board &board, int a, int b, bool save) {
+	int sbTop, sbLeft, sbWidth, sbHeight, iterations, steps;
+	bool tracePaths;
+	
 	cout << "Start box: top, left, width, height" << endl;
 	cin >> sbTop >> sbLeft >> sbWidth >> sbHeight;
 	cout << "Iterations (number of random walkers)" << endl;
@@ -16,30 +17,7 @@ void rwParams(int &sbTop, int &sbLeft, int &sbWidth, int &sbHeight, int &iterati
 	char c;
 	cin >> c;
 	tracePaths = (c == 'y' || c == 'Y');
-}
 
-int main() {
-	int hueLo, hueHi, sat, bright;
-	bool save;
-	imageParams(hueLo, hueHi, sat, bright, save);
-	
-	int width, height, scale, knightA, knightB;
-	boardParams(width, height, scale, knightA, knightB);
-	
-	int sbTop, sbLeft, sbWidth, sbHeight, iterations, steps;
-	bool tracePaths;
-	rwParams(sbTop, sbLeft, sbWidth, sbHeight, iterations, steps, tracePaths);
-
-	Vec3b lo(hueLo, sat, bright);
-	Vec3b hi(hueHi, sat, bright);
-	
-	Board b = Board(width, height, scale);
-	b.setColors(lo, hi);
-	
-	if (tracePaths) rwPath(b, sbTop, sbLeft, sbWidth, sbHeight, knightA, knightB, iterations, steps, save);
-	else rw(b, sbTop, sbLeft, sbWidth, sbHeight, knightA, knightB, iterations, steps, save);
-	if (!save) {
-		b.refreshImg();
-		b.toPNG("final.png");
-	}
+	if (tracePaths) rwPath(board, sbTop, sbLeft, sbWidth, sbHeight, a, b, iterations, steps, save);
+	else rw(board, sbTop, sbLeft, sbWidth, sbHeight, a, b, iterations, steps, save);
 }

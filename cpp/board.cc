@@ -5,7 +5,11 @@
 using namespace std;
 using namespace cv;
 
-Board::Board(unsigned int w, unsigned int h, int s): width{w}, height{h}, scale{s}, data(w * h, 0), img(h * s, w * s, CV_8UC3, Scalar(0, 0, 0)) {}
+Board::Board(unsigned int w, unsigned int h, int s, string d): 
+	width{w}, height{h}, scale{s}, dir{d}, data(w * h, 0), img(h * s, w * s, CV_8UC3, Scalar(0, 0, 0)) 
+{
+	if (dir.back() != '/') dir.push_back('/');
+}
 
 void Board::print() {
 	for (int r = 0; r < height; r++) {
@@ -52,7 +56,7 @@ void Board::line(int r1, int c1, int r2, int c2, float f) {
 }
 
 void Board::toPNG(string fname) {
-	write(img, fname);
+	write(img, dir + fname);
 }
 
 int Board::get(unsigned int r, unsigned int c) {

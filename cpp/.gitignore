@@ -1,8 +1,7 @@
 *.o
 *.a
-bfs
-rw
 out*
+scripts/knight
 CMakeCache.txt
 CMakeFiles
 cmake_install.cmake
