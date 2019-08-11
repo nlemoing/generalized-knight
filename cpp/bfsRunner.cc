@@ -28,5 +28,8 @@ int main() {
 	b.setColors(lo, hi);
 
 	bfs(b, startR, startC, knightA, knightB, save);
-	if (!save) b.toPNG("final.png");
+	if (!save) {
+		b.refreshImg();
+		b.toPNG("final.png");
+	}
 }

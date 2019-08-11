@@ -38,5 +38,8 @@ int main() {
 	
 	if (tracePaths) rwPath(b, sbTop, sbLeft, sbWidth, sbHeight, knightA, knightB, iterations, steps, save);
 	else rw(b, sbTop, sbLeft, sbWidth, sbHeight, knightA, knightB, iterations, steps, save);
-	if (!save) b.toPNG("final.png");
+	if (!save) {
+		b.refreshImg();
+		b.toPNG("final.png");
+	}
 }
