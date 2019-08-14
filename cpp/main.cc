@@ -21,15 +21,15 @@ int main(int argc, char **argv) {
 	}
 	outputDir = argv[2];
 	
-	int hueLo, hueHi, sat, bright;
+	int hueLo, hueHi, satLo, satHi, valLo, valHi;
 	bool save;
-	imageParams(hueLo, hueHi, sat, bright, save);
+	imageParams(hueLo, satLo, valLo, hueHi, satHi, valHi, save);
 	
 	int width, height, scale, knightA, knightB;
 	boardParams(width, height, scale, knightA, knightB);
 	
-	Vec3b lo(hueLo, sat, bright);
-	Vec3b hi(hueHi, sat, bright);
+	Vec3b lo(hueLo, satLo, valLo);
+	Vec3b hi(hueHi, satHi, valHi);
 	
 	Board b = Board(width, height, scale, outputDir);
 	b.setColors(lo, hi);

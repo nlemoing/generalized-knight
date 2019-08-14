@@ -7,13 +7,13 @@ void runRw(Board &board, int a, int b, bool save) {
 	int sbTop, sbLeft, sbWidth, sbHeight, iterations, steps;
 	bool tracePaths;
 	
-	cout << "Start box: top, left, width, height" << endl;
+	cerr << "Start box: top, left, width, height" << endl;
 	cin >> sbTop >> sbLeft >> sbWidth >> sbHeight;
-	cout << "Iterations (number of random walkers)" << endl;
+	cerr << "Iterations (number of random walkers)" << endl;
 	cin >> iterations;
-	cout << "Steps (number of steps per walker)" << endl;
+	cerr << "Steps (number of steps per walker)" << endl;
 	cin >> steps;
-	cout << "Trace paths? [y/n]" << endl;
+	cerr << "Trace paths? [y/n]" << endl;
 	char c;
 	cin >> c;
 	tracePaths = (c == 'y' || c == 'Y');

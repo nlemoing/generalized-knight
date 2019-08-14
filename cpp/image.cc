@@ -17,8 +17,8 @@ void drawPoint(Mat &img, int r, int c, Vec3b color, int scale) {
 }
 
 void drawLine(Mat &img, int r1, int c1, int r2, int c2, Vec3b color, int scale) {
-	Point p1(c1, r1);
-	Point p2(c2, r2);
+	Point p1(c1 * scale + (scale/2), r1 * scale + (scale/2));
+	Point p2(c2 * scale + (scale/2), r2 * scale + (scale/2));
 	Scalar s(color[0], color[1], color[2]);
 	line(img, p1, p2, s);
 }

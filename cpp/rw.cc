@@ -27,6 +27,11 @@ void rw(Board &board, int sbTop, int sbLeft, int sbWidth, int sbHeight, unsigned
 	vector<pair<unsigned int, unsigned int>> v;
 	char fname[16];
 
+	if (save_steps) {
+		sprintf(fname, "%04d.png", 0);
+		board.refreshImg();
+		board.toPNG(fname);
+	}
 	for (int step = 1; step <= steps; step++) {
 		for (int it = 0; it < iterations * 2; it += 2) {
 			r = walkers[it];
