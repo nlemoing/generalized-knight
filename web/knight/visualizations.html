@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visualizing the Quest</title>
+</head>
+<style>
+.colorpicker {
+	position: relative;	
+	width: 400px;
+}
+.numberinput {
+	width: 50px;
+}
+.colordisplayContainer {
+	position: relative;
+	width: 100px;
+}
+.colordisplay {
+	position: absolute;
+	left: 20%;
+	top: 20%;
+	width: 60%;
+	height: 60%;
+	background: black;
+}
+#create-image {
+	height: 500px;
+	width: 500px;
+	display: inline-flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-content: flex-start;
+}
+#vis-container {
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+#vis-image {
+	max-width: 360px;
+}
+</style>
+
+<body>
+<h1>Visualizations</h1> 
+
+<div id="vis-container">
+<form id="create-image" action="/api/knight/createImage" method="POST" enctype="multipart/form-data">
+<div id="boardProperties">
+<h2>Board Properties</h2>
+<table>
+<tr>
+  <td>Width</td>
+  <td><input id="board-width" name="board-width" class="numberinput" type="number" min=0 step=1 value=8></input></td>
+</tr>
+<tr>
+  <td>Height</td>
+  <td><input id="board-height" name="board-height" class="numberinput" type="number" min=0 step=1 value=8></input></td>
+</tr>
+</table>
+</div>
+
+<div id="knightMovement">
+<h2>Knight Movement</h2>
+<table>
+<tr>
+  <td>Direction A</td>
+  <td><input id="knight-a" name="knight-a" class="numberinput" type="number" min=0 step=1 value=1></input></td>
+</tr>
+<tr>
+  <td>Direction B</td>
+  <td><input id="knight-b" name="knight-b" class="numberinput" type="number" min=0 step=1 value=2></input></td>
+</tr>
+<tr>
+  <td>Movement Style</td>
+  <td>
+    <input id="type-symmetric" name="movement-type" value="bfs" type="radio" checked>Symmetric</input><br/>
+    <input id="type-random" name="movement-type" value="rw" type="radio">Random</input>
+  <td>
+</tr>
+<tr>
+  <td>Number of knights</td>
+  <td><input id="iterations" name="iterations" class="numberinput" type="number" min=0 step=1 value=100></input></td>
+</tr>
+<tr>
+  <td>Steps per knight</td>
+  <td><input id="steps" name="steps" class="numberinput" type="number" min=0 step=1 value=50></input></td>
+</tr>
+</table>
+<h3>Starting Area</h3>
+<table>
+<tr>
+  <td>Row</td>
+  <td><input id="sb-row" name="sb-row" class="numberinput" type="number" min=0 step=1 value=0></input></td>
+</tr>
+<tr>
+  <td>Column</td>
+  <td><input id="sb-col" name="sb-col" class="numberinput" type="number" min=0 step=1 value=0></input></td>
+</tr>
+<tr>
+  <td>Width</td>
+  <td><input id="sb-width" name="sb-width" class="numberinput" type="number" min=0 step=1 value=1></input></td>
+</tr>
+<tr>
+  <td>Height</td>
+  <td><input id="sb-height" name="sb-height" class="numberinput" type="number" min=0 step=1 value=1></input></td>
+</tr>
+</table>
+</div>
+
+<div id="imageProperties">
+<h2>Image Properties</h2>
+<table>
+<tr>
+  <td>Animated?</td>
+  <td><input id="animated" name="animated" type="checkbox"></input></td>
+</tr>
+<tr>
+  <td>Trace Paths?</td>
+  <td><input id="trace-paths" name="trace-paths" type="checkbox"></input></td>
+</tr>
+<tr>
+  <td>Pixels per Board Square</td> 
+  <td><input id="scale-factor" name="scale-factor" class="numberinput" type="number" min=0 step=1 value=50></input></td>
+</tr>
+<tr>
+  <td>Image Width</td>
+  <td><span id="image-width">400</span>px<td>
+</tr>
+<tr>
+  <td>Image Height</td>
+  <td><span id="image-height">400</span>px<td>
+</tr>
+</table>
+
+<h3> Low Color</h3>
+<table>
+<tr>
+  <td>Hue</td>
+  <td><input id="low-hue" name="low-hue" class="numberinput" type="number" min=0 max=360 step=1 value=25></input></td>
+  <td id="low-color-container" rowspan="3" class="colordisplayContainer"></td>
+</tr>
+<tr>
+  <td>Saturation</td>
+  <td><input id="low-saturation" name="low-sat" class="numberinput" type="number" min=0 max=100 step=1 value=90></input></td>
+</tr>
+<tr>
+  <td>Lightness</td>
+  <td><input id="low-lightness" name="low-light" class="numberinput" type="number" min=0 max=100 step=1 value=50></input></td>
+</tr>
+</table>
+
+<h3> High Color</h3>
+<table>
+<tr>
+  <td>Hue</td>
+  <td><input id="high-hue" name="high-hue" class="numberinput" type="number" min=0 max=360 step=1 value=230></input></td>
+  <td id="high-color-container" rowspan="3" class="colordisplayContainer"></td>
+</tr>
+<tr>
+  <td>Saturation</td>
+  <td><input id="high-saturation" name="high-sat" class="numberinput" type="number" min=0 max=100 step=1 value=90></input></td>
+</tr>
+<tr>
+  <td>Lightness</td>
+  <td><input id="high-lightness" name="high-light" class="numberinput" type="number" min=0 max=100 step=1 value=30></input></td>
+</tr>
+</table>
+</div>
+<br/>
+<div>
+<input id="submit" type="submit" value="Create Image!"></input>
+</div>
+</form>
+
+<div id="vis-image-container">
+  <img id="vis-image"></img><br/>
+  <a id="image-download" style="visibility: hidden" download>Download!</a>
+</div>
+</div>
+</body>
+<script src="color.js"></script>
+<script>
+var clow = createColorDisplay("low");
+var chigh = createColorDisplay("high");
+
+function updateImageSize(evt) {
+	evt.srcElement.value = Math.max(0, evt.srcElement.value);
+
+	var sf = document.getElementById("scale-factor").value;	
+	var boardW = document.getElementById("board-width").value;
+	var boardH = document.getElementById("board-height").value;
+	
+	document.getElementById("image-width").textContent = boardW * sf;
+	document.getElementById("image-height").textContent = boardH * sf;
+}
+function toggleRandom(disabled) {
+	document.getElementById("iterations").disabled = disabled;
+	document.getElementById("steps").disabled = disabled;
+	document.getElementById("sb-width").disabled = disabled;
+	document.getElementById("sb-height").disabled = disabled;
+}
+document.getElementById("scale-factor").addEventListener("change", updateImageSize);
+document.getElementById("board-width").addEventListener("change", updateImageSize);
+document.getElementById("board-height").addEventListener("change", updateImageSize);
+document.getElementById("type-random").addEventListener("change", function () {
+	toggleRandom(false);
+});
+document.getElementById("type-symmetric").addEventListener("change", function () {
+	toggleRandom(true)
+});
+document.getElementById("create-image").addEventListener("submit", function (evt) {
+	evt.preventDefault();
+	var download = document.getElementById("image-download");
+	var image = document.getElementById("vis-image");
+
+	image.src = "";
+	download.href = "";
+	download.style = "visibility: hidden"
+
+	var data = new FormData(evt.target);
+	var request = new XMLHttpRequest();
+	request.open("POST", "/api/knight/createImage");
+	request.onload = function () {
+		image.src = request.response;
+		download.href = request.response;
+		download.style = "visibility: visible";
+	}
+	request.send(data);
+});
+</script>
+</html>

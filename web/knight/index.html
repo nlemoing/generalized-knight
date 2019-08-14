@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A (Generalized) Knight's Quest</title>
+</head>
+<style>
+.chessboard {
+	width: 400px;
+	height: 400px;
+	position: relative;
+}
+.tile {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+}
+.bt {
+	background-color: #8B4513;
+}
+.wt {
+	background-color: #FFDEAD;
+}
+
+</style>
+<body>
+<h1>A (Generalized) Knight's Quest</h2>
+
+<p>
+A white knight finds itself on a chessboard, empty except for its mortal enemy: the black knight.
+The white knight doesn't know how it got there. 
+But that doesn't matter: the knight's instincts tell it that it must capture the black piece.
+</p>
+<p>
+The knight moves by taking two steps in any direction followed by another step perpendicular to the first.
+You can imagine it moving in an "L" shape. Possible moves are highlighted in green. 
+The knight can also be returned to its starting position by clicking on it.
+</p>
+
+<div class="chessboard" id="game1"></div>
+
+<p>
+To the knight's suprise, his opponent doesn't move at all, a clear violation of the rules of chess.
+Despite this, the knight is able to capture the other piece in as few as <b>five</b> moves with a bit of trial and error.
+After trying and re-trying a few times, the knight starts to wonder: is there any way I can speed this up?
+</p>
+<p>
+It turns out that <b>five</b> is the lower limit, at least for the way the knight moves right now. 
+But since we already threw the rules of chess out the window, why not change the way knights can move as well?
+</p>
+
+<h2>New and Improved: The Generalized Knight</h2>
+
+<p>
+We've seen how knights move normally: <b>two</b> steps in one direction followed by <b>one</b> perpendicular step.
+If we follow the same patterns but futz with the numbers a little bit, we can imagine a knight that takes <b>three</b>, then <b>two</b> perpendicular, steps, or <b>five</b> followed by <b>six</b> perpendicular.
+In general, an <b>(a, b)</b>-knight takes <b>a</b> steps in any direction and then <b>b</b> steps in a perpendicular direction.
+Our original knight was a <b>(1,2)</b>-knight, but we can replace those numbers with anything we want!
+It's not too hard to see that if we flip the numbers, the moves we can make are the same, so in general we'll list the smaller number first.
+</p>
+
+<p>
+With these new ways of moving available, the knight is giddy with excitement. Just think about how much faster we can get our job done now!
+The first thing we'll try is doubling our speed: we'll try using a <b>(2,4)</b>-knight.
+Surely this means we'll be able to capture twice as fast?
+</p>
+
+<div class="chessboard" id="game2"></div>
+
+<p>
+The white knight is distraught. By trying to speed up, now it can't capture the other piece at all! 
+In fact, it seems like there's now a large number of pieces that are totally inaccessible. Why would that be?
+For starters, we can't even move our knight to the same column as the other piece.
+But that's not all: many other rows and columns are inaccessible as well.
+</p>
+
+<p>
+The root of this issue comes from our initial choice of numbers. To see why this is a problem, let's number off the rows and columns.
+We're starting in the first column and fourth row. When we make a move, we change one of these numbers by <b>two</b> and the other by <b>four</b>.
+As a result, the column number will always be odd! This is why we can't capture the piece: it lives in the eighth column, which we can't reach by just adding even numbers.
+</p>
+<p>
+In fact, this is true for all choices of <b>(a,b)</b> where <b>a</b> and <b>b</b> have a factor in common.
+The intuition behind this is that we will always be adding some multiple of this common factor to our coordinates.
+If the coordinates of our target square aren't also a multiple of this common factor, the target square will be unreachable.
+</p>
+
+<p>
+Okay, maybe doubling was too ambitious. Let's be conservative and try a <b>(1,3)</b>-knight. 
+We can take bigger steps than we could at the start, but the numbers don't share any factors, so we avoid the trap we saw earlier.
+</p>
+
+<div class="chessboard" id="game3"></div> 
+
+<p>
+Looks like we're still running into the same problem. No matter what moves we take, we can't seem to capture the other piece (although we can get close).
+Looking closer, it seems like our possible moves are always on black squares, while the other piece is on a white square.
+For some reason, white squares are inaccessible.
+</p>
+<a href="visualizations.html">Visualizations</a>
+</body>
+<script src="chess.js"></script>
+<script>
+g1 = createGame("game1", {a: 2, b: 1, startR: 3, startC: 0, endR: 3, endC: 7});
+g2 = createGame("game2", {a: 4, b: 2, startR: 3, startC: 0, endR: 3, endC: 7});
+g3 = createGame("game3", {a: 3, b: 1, startR: 3, startC: 0, endR: 3, endC: 7});
+</script>
+</html>
+
