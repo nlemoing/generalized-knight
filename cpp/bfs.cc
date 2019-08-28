@@ -32,10 +32,10 @@ void bfs(Board &board, unsigned int startRow, unsigned int startCol, unsigned in
 			q.push_back(next);
 		}
 	}
+	board.refreshImg();
 	if (save_steps) {
 		iterations += 1;
 		sprintf(fname, "%04d.png", iterations);
-		board.refreshImg();
 		board.toPNG(fname);
 	}
 }

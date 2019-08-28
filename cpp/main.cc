@@ -41,7 +41,6 @@ int main(int argc, char **argv) {
 	}
 
 	if (!save) {
-		b.refreshImg();
 		b.toPNG("final.png");
 	}
 }

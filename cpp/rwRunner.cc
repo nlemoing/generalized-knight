@@ -4,11 +4,13 @@
 using namespace std;
 
 void runRw(Board &board, int a, int b, bool save) {
-	int sbTop, sbLeft, sbWidth, sbHeight, iterations, steps;
+	StartBox sb;
+	Knight k = { a, b };
+	int iterations, steps;
 	bool tracePaths;
 	
 	cerr << "Start box: top, left, width, height" << endl;
-	cin >> sbTop >> sbLeft >> sbWidth >> sbHeight;
+	cin >> sb.top >> sb.left >> sb.width >> sb.height;
 	cerr << "Iterations (number of random walkers)" << endl;
 	cin >> iterations;
 	cerr << "Steps (number of steps per walker)" << endl;
@@ -18,6 +20,5 @@ void runRw(Board &board, int a, int b, bool save) {
 	cin >> c;
 	tracePaths = (c == 'y' || c == 'Y');
 
-	if (tracePaths) rwPath(board, sbTop, sbLeft, sbWidth, sbHeight, a, b, iterations, steps, save);
-	else rw(board, sbTop, sbLeft, sbWidth, sbHeight, a, b, iterations, steps, save);
+	rw(board, sb, k, iterations, steps, save, tracePaths);
 }
