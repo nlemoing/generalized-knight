@@ -9,10 +9,6 @@
 using namespace std;
 using namespace cv;
 
-bool invalid(Board &b, pair<unsigned int, unsigned int> p) {
-	return b.get(p.first, p.second) == -1;
-}
-
 void rw(Board &board, StartBox &sb, Knight &k, int iterations, int steps, bool save_steps, bool trace_paths) {
 	
 	srand(time(NULL));
@@ -23,8 +19,8 @@ void rw(Board &board, StartBox &sb, Knight &k, int iterations, int steps, bool s
 		walkers[it+1] = sb.left + (rand() % sb.width); // start col
 	}
 	
-	int r, c, i, num_moves, next;
-	vector<pair<unsigned int, unsigned int>> v;
+	int r, c, i;
+	pair<unsigned int, unsigned int> next;
 	char fname[16];
 
 	if (save_steps) {
@@ -41,15 +37,9 @@ void rw(Board &board, StartBox &sb, Knight &k, int iterations, int steps, bool s
 			if (i == -1) continue;
 			board.set(r, c, i+1);	
 			
-			v = nextMoves(r, c, k.a, k.b);
-			auto begin = v.begin();
-			auto end = v.end();
-			end = remove_if(begin, end, [&board](pair<unsigned int, unsigned int> p) { return invalid(board, p); });
-			num_moves = distance(begin, end);
-			next = rand() % num_moves;
-
-			walkers[it] = v[next].first;
-			walkers[it+1] = v[next].second;
+			next = randomNextMove(board, r, c, k.a, k.b);
+			walkers[it] = next.first;
+			walkers[it+1] = next.second;
 
 			if (trace_paths) {
 				board.line(r, c, walkers[it], walkers[it+1], (float)it / (2 * iterations));
