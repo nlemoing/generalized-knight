@@ -1,6 +1,6 @@
 # Generalized Knights
 
-This is the code that originally served as the inspiration for [this article](https://lemoing.ca/blog/knight.html)!
+This is the code that originally served as the inspiration for [this article](https://lemoing.ca/blog/knight.html)! Discussion on [Hacker News](https://news.ycombinator.com/item?id=21914566).
 
 > The idea is this: we replace the normal two-then-one pattern knights have with an a-then-b pattern, 
 > where a and b can be any whole number. From now on, when we refer to an (a,b)-knight, we’re referring
